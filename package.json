@@ -1,6 +1,22 @@
 {
   "name": "my_untils",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "dist/my-utils.js",
+  "license": "MIT",
+  "description": "自定义工具函数库",
+  "keywords": [
+    "utils",
+    "array",
+    "object",
+    "function",
+    "promise",
+    "axios"
+  ],
+  "scripts": {
+    "build": "webpack --watch"
+  },
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
 }
