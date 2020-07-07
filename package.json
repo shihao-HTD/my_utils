@@ -1,6 +1,7 @@
 {
-  "name": "my_untils",
+  "name": "htd_untils",
   "version": "1.0.0",
+  "author": "shihao-htd",
   "main": "dist/my-utils.js",
   "license": "MIT",
   "description": "自定义工具函数库",
