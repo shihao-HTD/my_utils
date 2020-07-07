@@ -33,7 +33,7 @@
       "name": "atguigu-utils",
       "version": "1.1.7",
       "author": "xfzhang",
-      "description": "尚硅谷大前端自定义工具函数库",
+      "description": "自定义工具函数库",
       "keywords": ["atguigu", "utils", "array", "object", "function", "promise", "axios"],
       "main": "dist/atguigu-utils.js",
       "license": "MIT",
