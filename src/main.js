@@ -12,3 +12,5 @@ export {
   every,
   some,
 } from "./array/declare"
+
+export { unique1, unique2, unique3 } from "./array/unique"
