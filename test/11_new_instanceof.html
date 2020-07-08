@@ -18,7 +18,8 @@
         实现: Type的原型对象是否是obj的原型链上的某个对象, 如果是返回tru, 否则返回false
     */
     </script>
-    <script src="../dist/190719-utils.js"></script>
+
+    <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
       function Person(name, age) {
         this.name = name
@@ -29,6 +30,9 @@
         // return function (){}
         return 1
         // return undefined
+      }
+      Person.prototype.sayName = function () {
+        console.log(this.name)
       }
 
       const p = new Person("tom", 12)
