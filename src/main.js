@@ -16,3 +16,4 @@ export {
 export { unique1, unique2, unique3 } from "./array/unique"
 export { default as concat } from "./array/concat"
 export { slice } from "./array/slice"
+export { flatten1, flatten2, flatten3 } from "./array/flatten"
