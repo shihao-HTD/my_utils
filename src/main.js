@@ -14,3 +14,5 @@ export {
 } from "./array/declare"
 
 export { unique1, unique2, unique3 } from "./array/unique"
+export { default as concat } from "./array/concat"
+export { slice } from "./array/slice"
