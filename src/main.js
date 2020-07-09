@@ -34,3 +34,4 @@ export {
   deepClone4,
 } from "./object/deepClone"
 export { reverseString, palindrome, truncate } from "./string"
+export { Stack } from "./da/stack"
