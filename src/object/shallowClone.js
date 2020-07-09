@@ -19,7 +19,10 @@ export function clone2(target) {
   ) {
     const cloneTarget = target instanceof Array ? [] : {}
     for (const targetKey in target) {
-      cloneTarget[targetKey] = target[targetKey]
+      if (target.hasOwnProperty(targetKey)) {
+        // 如果是target自身的属性 那么就赋值给克隆的对象或者数组
+        cloneTarget[targetKey] = target[targetKey]
+      }
     }
     return cloneTarget
   } else {

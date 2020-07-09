@@ -27,3 +27,9 @@ export { newInstance } from "./object/newInstance"
 export { myInstanceOf } from "./object/myInstanceOf"
 export { mergeObject } from "./object/mergeObject"
 export { clone1, clone2 } from "./object/shallowClone"
+export {
+  deepClone1,
+  deepClone2,
+  deepClone3,
+  deepClone4,
+} from "./object/deepClone"
