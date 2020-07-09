@@ -35,3 +35,5 @@ export {
 } from "./object/deepClone"
 export { reverseString, palindrome, truncate } from "./string"
 export { Stack } from "./da/stack"
+export { Queue } from "./da/queue"
+export { PriorityQueue } from "./da/priority-queue"
