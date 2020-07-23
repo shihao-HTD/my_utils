@@ -28,6 +28,28 @@
           指定this为obj
           指定参数为bind调用的参数和后面新函数调用的参数
 -->
+    <script type="text/javascript">
+      const aUtils2 = {
+        call(fn, obj, ...args) {
+          if (obj === null || obj === undefined) {
+            obj = window
+          }
+          obj.temp = fn
+          const result = obj.temp(...args)
+          delete obj.temp
+          return result
+        },
+        apply(fn, obj, args) {
+          return this.call(fn, obj, ...args)
+        },
+        bind(fn, obj, ...args1) {
+          const that = this
+          return function (...args2) {
+            return that.call(fn, obj, ...args1, ...args2)
+          }
+        },
+      }
+    </script>
     <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
       /*
@@ -40,12 +62,13 @@
       }
       const p = { m: 0 }
       fn(10, 20) // 10 20 window 2
-      aUtils.call(fn, p, 3, 6) // 3 6 p 2
-      aUtils.apply(fn, p, [5, 1]) // 5 1 p 2
-      aUtils.call(fn, null, 4, 7) // 4 7 window 2
-      aUtils.bind(fn, p)(10, 30) // 10 30 p 2
-      aUtils.bind(fn, p, 1)(2, 3) // 1 2 p 3
-      aUtils.bind(fn, p, 3, 4)(5, 6) // 3 4 p 4
+      console.log(aUtils2.call(fn, p, 3, 6)) // 3 6 p 2
+      console.log(aUtils2.apply(fn, p, [5, 1])) // 5 1 p 2
+      console.log(aUtils2.call(fn, null, 4, 7)) // 4 7 window 2
+      console.log("----")
+      console.log(aUtils2.bind(fn, p)(10, 30)) // 10 30 p 2
+      console.log(aUtils2.bind(fn, p, 1)(2, 3)) // 1 2 p 3
+      console.log(aUtils2.bind(fn, p, 3, 4)(5, 6)) // 3 4 p 4
     </script>
   </body>
 </html>
