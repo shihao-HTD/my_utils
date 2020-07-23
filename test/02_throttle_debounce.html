@@ -36,7 +36,33 @@
         2). 场景：
             输入框实时搜索联想（keyup/input）
   -->
-
+    <script type="text/javascript">
+      const aUtils2 = {
+        // 函数节流
+        throttle(callback, time) {
+          let oldTime = 0
+          return function (event) {
+            const currentTime = Date.now()
+            if (currentTime - oldTime >= time) {
+              callback.call(this, event)
+              oldTime = currentTime
+            }
+          }
+        },
+        // 函数防抖
+        debounce(callback, time) {
+          let timeoutID
+          return function (event) {
+            // 清除上次定时器
+            clearTimeout(timeoutID)
+            const that = this
+            timeoutID = setTimeout(function () {
+              callback.call(that, event)
+            }, time)
+          }
+        },
+      }
+    </script>
     <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.js"></script>
     <script src="../dist/my-utils.js"></script>
     <script>
@@ -56,11 +82,11 @@
         handleClick,
         2000
       )*/
-      document.getElementById("throttle").onclick = aUtils.throttle(
+      document.getElementById("throttle").onclick = aUtils2.throttle(
         handleClick,
         2000
       )
-      document.getElementById("debounce").onclick = aUtils.debounce(
+      document.getElementById("debounce").onclick = aUtils2.debounce(
         handleClick,
         2000
       )
