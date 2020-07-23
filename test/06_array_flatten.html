@@ -11,15 +11,49 @@
     数组扁平化: 取出嵌套数组(多维)中的所有元素放到一个新数组(一维)中
             如: [1, [3, [2, 4]]]  ==>  [1, 3, 2, 4]
   -->
-    <!-- <script src="../node_modules/atguigu-utils/dist/atguigu-utils.js"></script> -->
+    <script type="text/javascript">
+      const aUtils2 = {
+        flatten1(oldArr) {
+          let array = []
+          for (let index = 0; index < oldArr.length; index++) {
+            const element = oldArr[index]
+            if (Array.isArray(element)) {
+              array = array.concat(aUtils2.flatten1(element))
+            } else {
+              array.push(element)
+            }
+          }
+          return array
+        },
+        flatten2(oldArr) {
+          const array = []
+          for (let index = 0; index < oldArr.length; index++) {
+            const element = oldArr[index]
+            if (Array.isArray(element)) {
+              array.push(...aUtils2.flatten2(element))
+            } else {
+              array.push(element)
+            }
+          }
+          return array
+        },
+        flatten3(oldArr) {
+          let array = [...oldArr]
+          while (array.some((item) => Array.isArray(item))) {
+            array = [].concat(...array)
+          }
+          return array
+        },
+      }
+    </script>
     <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
       // [1]  ---> [1, 3, 2, 4]
       // [3, [2, 4]] --> [3] --> [3, 2, 4]
       // [2, 4] --> [2, 4]
-      console.log(aUtils.flatten1([1, [3, [2, 4]]]))
-      console.log(aUtils.flatten2([1, [3, [2, 4]]]))
-      console.log(aUtils.flatten3([1, [3, [2, 4]]]))
+      console.log(aUtils2.flatten1([1, [3, [2, 4]]]))
+      console.log(aUtils2.flatten2([1, [3, [2, 4]]]))
+      console.log(aUtils2.flatten3([1, [3, [2, 4]]]))
     </script>
   </body>
 </html>
