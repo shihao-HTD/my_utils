@@ -16,6 +16,24 @@
     合并后:
         { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }
   -->
+    <script type="text/javascript">
+      const aUtils2 = {
+        mergeObject(...objs) {
+          const newObj = {}
+          for (let index = 0; index < objs.length; index++) {
+            const obj = objs[index]
+            for (const objKey in obj) {
+              if (newObj.hasOwnProperty(objKey)) {
+                newObj[objKey] = [].concat(newObj[objKey], obj[objKey])
+              } else {
+                newObj[objKey] = obj[objKey]
+              }
+            }
+          }
+          return newObj
+        },
+      }
+    </script>
     <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
       const object = {
@@ -27,7 +45,7 @@
         b: [2, 3],
         c: "foo",
       }
-      console.log(aUtils.mergeObject(object, other))
+      console.log(aUtils2.mergeObject(object, other))
       // { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }
     </script>
   </body>
