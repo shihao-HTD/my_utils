@@ -20,11 +20,41 @@
         方法3: 利用ES6语法: from + Set 或者 ... + Set
                说明: 编码简洁
   -->
+    <script type="text/javascript">
+      const aUtils2 = {
+        unique1(arr) {
+          const array = []
+          for (let index = 0; index < arr.length; index++) {
+            const element = arr[index]
+            if (array.indexOf(element) === -1) {
+              array.push(element)
+            }
+          }
+          return array
+        },
+        unique2(arr) {
+          const array = []
+          const arrayObj = {}
+          for (let index = 0; index < arr.length; index++) {
+            const element = arr[index]
+            if (!arrayObj.hasOwnProperty(element)) {
+              array.push(element)
+              arrayObj[element] = true
+            }
+          }
+          return array
+        },
+        unique3(arr) {
+          // return Array.from(new Set([arr]))
+          return [...new Set(arr)]
+        },
+      }
+    </script>
     <script src="../dist/my-utils.js"></script>
     <script>
-      console.log(aUtils.unique1([2, 3, 2, 7, 6, 7]))
-      console.log(aUtils.unique2([2, 3, 2, 7, 6, 7]))
-      console.log(aUtils.unique3([2, 3, 2, 7, 6, 7]))
+      console.log(aUtils2.unique1([2, 3, 2, 7, 6, 7]))
+      console.log(aUtils2.unique2([2, 3, 2, 7, 6, 7]))
+      console.log(aUtils2.unique3([2, 3, 2, 7, 6, 7]))
     </script>
   </body>
 </html>
