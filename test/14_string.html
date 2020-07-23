@@ -11,11 +11,34 @@
     2. 字符串是否是回文: palindrome(str) 如果给定的字符串是回文，则返回 true ；否则返回 false
     3. 截取字符串: truncate(str, num) 如果字符串的长度超过了num, 截取前面num长度部分, 并以...结束
   -->
+    <script type="text/javascript">
+      const aUtils2 = {
+        reverseString(str) {
+          return str.split("").reverse().join("")
+        },
+        palindrome(str) {
+          return str === this.reverseString(str)
+        },
+        truncate(str, num) {
+          if (str.length > num) {
+            const strArr = str.split("")
+            const newStrArr = []
+            for (let index = 0; index < num; index++) {
+              const element = strArr[index]
+              newStrArr.push(element)
+            }
+            return newStrArr.join("") + "..."
+          } else {
+            return str
+          }
+        },
+      }
+    </script>
     <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
-      console.log(aUtils.reverseString("abcd")) // dcba
-      console.log(aUtils.palindrome("abcb"), aUtils.palindrome("abcba")) // false true
-      console.log(aUtils.truncate("boomerang", 7)) // boomera...
+      console.log(aUtils2.reverseString("abcd")) // dcba
+      console.log(aUtils2.palindrome("abcb"), aUtils2.palindrome("abcba")) // false true
+      console.log(aUtils2.truncate("boomerang", 7)) // boomera...
     </script>
   </body>
 </html>
