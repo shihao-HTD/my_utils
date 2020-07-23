@@ -7,6 +7,46 @@
     <title>数组合并与切片</title>
   </head>
   <body>
+    <script type="text/javascript">
+      const aUtils2 = {
+        concat(oldArr, ...args) {
+          const array = [...oldArr]
+          for (let index = 0; index < args.length; index++) {
+            const element = args[index]
+            if (Array.isArray(element)) {
+              array.push(...element)
+            } else {
+              array.push(element)
+            }
+          }
+          return array
+        },
+        slice(oldArr, begin, end) {
+          const array = []
+          if (oldArr.length === 0) {
+            return array
+          }
+          // 处理begin边界
+          if (typeof begin === "undefined" || begin < 0) {
+            begin = 0
+          }
+          // 处理end边界
+          if (typeof end === "undefined" || end > oldArr.length) {
+            end = oldArr.length
+          }
+          // 处理 begin>end时
+          if (begin > end) {
+            ;[end, begin] = [begin, end]
+          }
+
+          for (let index = begin; index < end; index++) {
+            const element = oldArr[index]
+            array.push(element)
+          }
+          return array
+        },
+      }
+    </script>
     <script src="../dist/my-utils.js"></script>
     <script>
       /*
@@ -17,11 +57,11 @@
         语法: var newArray = slice(oldArr, [begin[, end]])
         功能: 返回一个由 begin 和 end 决定的原数组的浅拷贝, 原始数组不会被改变
     */
-      console.log(aUtils.concat([1, 2], [3, 4], 6)) // [1, 2, 3, 4, 6]
+      console.log(aUtils2.concat([1, 2], [3, 4], 6)) // [1, 2, 3, 4, 6]
 
-      console.log(aUtils.slice([1, 3, 5, 7, 9])) // [1, 3, 5, 7, 9]
-      console.log(aUtils.slice([1, 3, 5, 7, 9], 1, 3)) // [3, 5]
-      console.log(aUtils.slice([1, 3, 5, 7, 9], 1, 10)) // [3, 5, 7, 9]
+      console.log(aUtils2.slice([1, 3, 5, 7, 9])) // [1, 3, 5, 7, 9]
+      console.log(aUtils2.slice([1, 3, 5, 7, 9], 1, 3)) // [3, 5]
+      console.log(aUtils2.slice([1, 3, 5, 7, 9], 1, 10)) // [3, 5, 7, 9]
     </script>
   </body>
 </html>
