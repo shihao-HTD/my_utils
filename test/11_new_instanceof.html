@@ -18,9 +18,35 @@
         实现: Type的原型对象是否是obj的原型链上的某个对象, 如果是返回tru, 否则返回false
     */
     </script>
-    
+
     <script type="text/javascript">
-      
+      const aUtils2 = {
+        newInstance(Fn, ...args) {
+          const obj = {}
+          const result = Fn.call(obj, ...args)
+          if (
+            result !== null &&
+            (typeof result === "object" || typeof result === "function")
+          ) {
+            return result
+          } else {
+            obj.__proto__ = Fn.prototype
+            return obj
+          }
+        },
+        myInstanceOf(obj, Type) {
+          let isInstance = false
+          let proto = obj.__proto__
+          while (proto) {
+            if (proto === Type.prototype) {
+              isInstance = true
+              break
+            }
+            proto = proto.__proto__
+          }
+          return isInstance
+        },
+      }
     </script>
 
     <script type="text/javascript" src="../dist/my-utils.js"></script>
@@ -42,16 +68,16 @@
       const p = new Person("tom", 12)
       console.log(p)
 
-      const p2 = aUtils.newInstance(Person, "Jack", 13) // new Person('Jack', 13)
+      const p2 = aUtils2.newInstance(Person, "Jack", 13) // new Person('Jack', 13)
       console.log(p2, p2.constructor)
     </script>
     <script>
-      console.log(aUtils.myInstanceOf(p, Object)) // true
-      console.log(aUtils.myInstanceOf(p, Person)) // true
-      console.log(aUtils.myInstanceOf(aUtils.myInstanceOf, Function)) // true
+      console.log(aUtils2.myInstanceOf(p, Object)) // true
+      console.log(aUtils2.myInstanceOf(p, Person)) // true
+      console.log(aUtils2.myInstanceOf(aUtils2.myInstanceOf, Function)) // true
       console.log(
-        aUtils.myInstanceOf(p, String),
-        aUtils.myInstanceOf(p, Function)
+        aUtils2.myInstanceOf(p, String),
+        aUtils2.myInstanceOf(p, Function)
       ) // false false
       console.log(p instanceof Function) // false
     </script>
