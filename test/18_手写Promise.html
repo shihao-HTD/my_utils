@@ -7,21 +7,21 @@
     <title>手写Promise</title>
   </head>
   <body>
-    <script src="../dist/190719-utils.js"></script>
+    <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
-      const { Promise } = aUtils
+      // const { Promise } = aUtils
       new Promise((resolve, reject) => {
         // resolve(1)
-        // setTimeout(() => {
-        reject(2)
-        // }, 1000);
+        setTimeout(() => {
+          reject(2)
+        }, 1000)
       })
         .then((value) => {
-          console.log("onResolve()1")
+          console.log("onResolve1()")
         })
         .then(
           (value) => {
-            console.log("onResolved()2", value)
+            console.log("onResolved2()", value)
           },
           (reason) => {
             console.log("onRejected2()", reason)

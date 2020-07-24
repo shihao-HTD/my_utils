@@ -1,7 +1,11 @@
-const map = new Map()
-const obj = {
-  a: 1,
-  b: 2,
+
+
+function demo(){
+  throw 1
 }
-map.set(obj,obj)
-console.log(map.get(obj))
+
+try {
+  demo()
+}catch (e){
+  console.log(e)
+}
