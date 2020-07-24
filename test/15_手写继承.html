@@ -14,27 +14,28 @@
   -->
     <script>
       function Person(name, age) {
+        console.log('Person()')
         this.name = name
         this.age = age
       }
       Person.prototype.sayName = function () {
-        console.log("我的name为:" + this.name)
+        console.log("my name is" + this.name)
       }
 
       function Student(name, age, sex) {
         Person.call(this, name, age)
         this.sex = sex
       }
+
       Student.prototype = new Person()
       Student.prototype.constructor = Student
-
-      const s = new Student("xxx", 19, "man")
+      const s = new Student("jack", 15, "man")
       console.log(s)
       s.sayName()
 
       /*
     问题1: student的原型对象包含几个不必要的属性
-    问题2: Student构造函数多执行了1次
+    问题2: Person构造函数多执行了1次
     */
     </script>
   </body>
