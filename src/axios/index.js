@@ -1,5 +1,5 @@
 /*
-   1. 函数的返回值为 promise, 成功的结果为 response, 异常的结果为 error
+   1. 函数的返回值为 Promise, 成功的结果为 response, 异常的结果为 error
    2. 能处理多种类型的请求: GET/POST/PUT/DELETE
    3. 函数的参数为一个配置对象
    {
