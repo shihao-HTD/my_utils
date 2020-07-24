@@ -14,9 +14,70 @@
   3. publishSync(msgName, data):  发布同步的消息
   4. unsubscribe(flag): 取消消息订阅
 -->
-    <script src="../dist/190719-utils.js"></script>
+    <!--    <script src="../dist/190719-utils.js"></script>-->
+    <script type="text/javascript">
+      const aUtils2 = {
+        PubSub: {
+          subscribe(msgName, callback) {
+            const { callbacks } = this
+            if (callbacks[msgName]) {
+              callbacks[msgName][++this.token] = callback
+            } else {
+              callbacks[msgName] = {}
+              callbacks[msgName][++this.token] = callback
+            }
+            return this.token
+          },
+          publish(msgName, data) {
+            const { callbacks } = this
+            setTimeout(function () {
+              if (callbacks[msgName]) {
+                for (const token in callbacks[msgName]) {
+                  if (callbacks[msgName].hasOwnProperty(token)) {
+                    callbacks[msgName][token](data)
+                  }
+                }
+              }
+            }, 0)
+          },
+          publishSync(msgName, data) {
+            const { callbacks } = this
+            if (callbacks[msgName]) {
+              for (const token in callbacks[msgName]) {
+                if (callbacks[msgName].hasOwnProperty(token)) {
+                  callbacks[msgName][token](data)
+                }
+              }
+            }
+          },
+          unsubscribe(flag) {
+            if (flag === undefined) {
+              this.callbacks = {}
+            } else if (typeof flag === "string") {
+              this.callbacks[flag] = null
+            } else {
+              for (const msgName in this.callbacks) {
+                if (this.callbacks.hasOwnProperty(msgName)) {
+                  const msgCallbacks = this.callbacks[msgName]
+                  for (const token in msgCallbacks) {
+                    if (msgCallbacks.hasOwnProperty(token)) {
+                      if (+token === flag) {
+                        delete msgCallbacks[token]
+                        return
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          callbacks: {},
+          token: 0,
+        },
+      }
+    </script>
     <script>
-      const { PubSub } = aUtils
+      const { PubSub } = aUtils2
       // 订阅消息
       PubSub.subscribe("add", (data) => {
         console.log("add()...", data)
@@ -38,8 +99,8 @@
       PubSub.publish("add", 12)
       PubSub.publish("update", 13)
       console.log("----")
-      // PubSub.unsubscribe(token)
-      // PubSub.unsubscribe('add')
+      PubSub.unsubscribe(token)
+      // PubSub.unsubscribe("add")
     </script>
   </body>
 </html>
