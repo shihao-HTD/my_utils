@@ -21,9 +21,89 @@
           对象: for-in 与 keys()&forEach() 差不多
   -->
     <script type="text/javascript">
+      const aUtils2 = {
+        deepClone1(obj) {
+          return JSON.parse(JSON.stringify(obj))
+        },
+        deepClone2(obj) {
+          let cloneObj
+          if (obj !== null && typeof obj === "object") {
+            // 数组或者对象
+            cloneObj = Array.isArray(obj) ? [] : {}
+            for (const objKey in obj) {
+              if (obj.hasOwnProperty(objKey)) {
+                cloneObj[objKey] = this.deepClone2(obj[objKey])
+              }
+            }
+          } else {
+            // 基础数据类型 直接赋值
+            cloneObj = obj
+          }
 
+          return cloneObj
+        },
+        deepClone3(obj, map = new Map()) {
+          let cloneObj
+          if (obj !== null && typeof obj === "object") {
+            // 数组或者对象
+            if (map.get(obj)) {
+              cloneObj = map.get(obj)
+            } else {
+              cloneObj = Array.isArray(obj) ? [] : {}
+              // 将cloneObj保存在map对象中
+              map.set(obj, cloneObj)
+              // 遍历赋值
+              for (const objKey in obj) {
+                if (obj.hasOwnProperty(objKey)) {
+                  cloneObj[objKey] = this.deepClone3(obj[objKey], map)
+                }
+              }
+            }
+          } else {
+            // 基础数据类型 直接赋值
+            cloneObj = obj
+          }
+
+          return cloneObj
+        },
+        deepClone4(obj, map = new Map()) {
+          let cloneObj
+          if (obj !== null && Array.isArray(obj)) {
+            // 数组克隆
+            if (map.get(obj)) {
+              cloneObj = map.get(obj)
+            } else {
+              cloneObj = []
+              // 将cloneObj保存在map对象中
+              map.set(obj, cloneObj)
+              // 遍历赋值
+              for (let index = 0; index < obj.length; index++) {
+                cloneObj[index] = this.deepClone4(obj[index], map)
+              }
+            }
+          } else if (typeof obj === "object") {
+            // 对象克隆
+            if (map.get(obj)) {
+              cloneObj = map.get(obj)
+            } else {
+              cloneObj = {}
+              // 将cloneObj保存在map对象中
+              map.set(obj, cloneObj)
+              // 遍历赋值
+              for (const objKey in obj) {
+                if (obj.hasOwnProperty(objKey)) {
+                  cloneObj[objKey] = this.deepClone4(obj[objKey], map)
+                }
+              }
+            }
+          } else {
+            // 基础数据类型 直接赋值
+            cloneObj = obj
+          }
+          return cloneObj
+        },
+      }
     </script>
-
     <script type="text/javascript" src="../dist/my-utils.js"></script>
     <script>
       const obj1 = {
@@ -36,10 +116,10 @@
       obj1.b.push(obj1.c) // 将c添加到b中
       obj1.c.j = obj1.b
 
-      // const obj1Clone = aUtils.deepClone1(obj1)
-      // const obj1Clone = aUtils.deepClone2(obj1)
-      // const obj1Clone = aUtils.deepClone3(obj1)
-      const obj1Clone = aUtils.deepClone4(obj1)
+      // const obj1Clone = aUtils2.deepClone1(obj1)
+      // const obj1Clone = aUtils2.deepClone2(obj1)
+      // const obj1Clone = aUtils2.deepClone3(obj1)
+      const obj1Clone = aUtils2.deepClone4(obj1)
       console.log(obj1Clone, obj1Clone.b === obj1.b, obj1Clone.c === obj1.c)
       console.log(obj1Clone.d === obj1.d) // true
     </script>

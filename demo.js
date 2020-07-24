@@ -1,4 +1,7 @@
-let a = 1
-let b = 2
-;[a, b] = [b, a]
-console.log(a, b)
+const map = new Map()
+const obj = {
+  a: 1,
+  b: 2,
+}
+map.set(obj,obj)
+console.log(map.get(obj))
