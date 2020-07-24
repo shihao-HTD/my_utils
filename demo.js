@@ -1,11 +1,10 @@
+const p = Promise.resolve(() => {})
 
-
-function demo(){
-  throw 1
-}
-
-try {
-  demo()
-}catch (e){
-  console.log(e)
-}
+p.then(
+  (value) => {
+    console.log("value", value)
+  },
+  (reason) => {
+    console.log("reason")
+  }
+)
